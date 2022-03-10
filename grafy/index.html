@@ -1,0 +1,310 @@
+
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text">
+<link href="https://fonts.googleapis.com/css2?family=Asap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
+
+<style>
+
+.light-gray-text {
+  fill: #aaa;
+  color: #aaa;
+}
+
+.eighteen {
+  fill: #009FB8;
+  font-weight: bold;
+}
+
+.nineteen {
+  fill: #3E80B6;
+  font-weight: bold;
+}
+
+.twenty {
+  fill: #e63946;
+  font-weight: bold;
+}
+
+text {
+  font-family: "Asap" !important;
+}
+
+.paragraph {
+  font-family: "Noticia text" !important;
+}
+
+.href {
+  color: #666;
+  fill: #666;
+}
+ 
+.highcharts-title {
+  font-family: "Noticia text" !important;
+  font-weight: bold !important;
+  text-align: left !important; 
+  /* font-size: 0.9rem !important;  */
+  left: 10px !important;
+}
+
+.highcharts-subtitle {
+  text-align: left !important; 
+  font-size: 0.95rem !important; 
+  left: 10px !important;
+  font-family: "Asap" !important;
+}
+
+.highcharts-data-labels text {
+  font-size: 0.85rem !important;
+}
+
+.highcharts-axis-labels text {
+  font-size: 0.85rem !important;
+}
+
+text.highcharts-plot-line-label {
+  font-size: 0.85rem !important;
+  fill: #666;
+}
+
+text.highcharts-plot-band-label {
+  font-size: 0.85rem !important;
+  fill: #666;
+}
+
+text.highcharts-credits {
+  font-size: 0.75rem !important;
+}
+
+.highcharts-tooltip span {
+  font-family: "Asap" !important;
+}
+
+/* Custom classes */
+.axis-label-on-tick {
+  fill: #aaa;
+  color: #aaa;
+}
+
+.mock-empty-line {
+  fill: #fff;
+  color: #fff;
+}
+
+.highcharts-tooltip-container {
+   z-index: 100 !important;
+}
+
+</style>
+
+<!-- html -->
+<div id="s1"></div>
+<div id="s2"></div>
+
+<script>
+
+var colors = {
+  'all': '#666',
+  'muzi': '#303F9F', 
+  'zeny' : '#D32F2F',    
+  'tapeta': '#f6f6f6',
+  'ostatni': '#aaa',
+  'uk': '#FFA000', 
+  'sk': '#303F9F', 
+  'vt': '#00796B', 
+  'ru' : '#D32F2F',  
+  'de': '#795548',
+  'pl': '#FF5252',
+  'ro': '#03A9F4',
+  'bg': '#8BC34A',
+  'mg': '#607D8B',
+  'cs': '#FFA000',
+  'hu': '#00796B',
+  'eu': '#aaa',
+  'podnikani': '#00796B',
+  'studium': '#303F9F',
+  'rodina': '#D32F2F',
+  'prace': '#FFA000',
+  'cechy': '#eaeaea',
+  'morava': '#f6f6f6'
+}
+
+Highcharts.setOptions({
+    lang: {
+      months: ['ledna', 'února', 'března', 'dubna', 'května', 'června', 'července', 'srpna', 'září', 'října', 'listopadu', 'prosince'],
+      shortMonths: ['leden', 'únor', 'březen', 'duben', 'květen', 'červen', 'červenec', 'srpen', 'září', 'říjen', 'listopad', 'prosinec'],
+      decimalPoint: ',',
+      numericSymbols: [' tis.', ' mil.', 'mld.', 'T', 'P', 'E'],
+      rangeSelectorFrom: 'od',
+      rangeSelectorTo: 'do',
+      rangeSelectorZoom: 'vyberte období:',
+    },
+  });
+
+let chartWidth =
+document.getElementById("s1").offsetWidth > 600
+  ? 600
+  : document.getElementById("s1").offsetWidth;
+
+</script>
+
+<script>
+
+const s1_cat = ['0-3', '4-6', '7-15', '16-18', '19-65', '65+'],
+      s1_m = [-2.9, -3.5, -12.0, -3.7, -10.6, -0.6],
+      s1_f = [2.8, 3.6, 12.4, 3.6, 42.1, 2.2];
+
+const s2_kraj = ["Hlavní město Praha","Karlovarský kraj","Plzeňský kraj","Středočeský kraj","Liberecký kraj","Královéhradecký kraj","Kraj Vysočina","Pardubický kraj","Jihomoravský kraj","Ústecký kraj","Zlínský kraj","Moravskoslezský kraj","Olomoucký kraj","Jihočeský kraj"],
+      s2_rel = [{"y":1968,"pocet":26271},
+                {"y":1303,"pocet":3822},
+                {"y":1163,"pocet":6871},
+                {"y":1081,"pocet":15119},
+                {"y":1054,"pocet":4663},
+                {"y":804,"pocet":4428},
+                {"y":794,"pocet":4040},
+                {"y":785,"pocet":4102},
+                {"y":752,"pocet":8987},
+                {"y":626,"pocet":5111},
+                {"y":477,"pocet":2765},
+                {"y":421,"pocet":5020},
+                {"y":361,"pocet":2278},
+                {"y":342,"pocet":2203}];
+
+Highcharts.chart('s1', {
+    chart: {
+        type: 'bar',
+        width: chartWidth, 
+        height: 400
+    },
+    title: {
+        text: 'Pobytová oprávnění v souvislosti s válkou na Ukrajině',
+        useHTML: true
+    },
+    subtitle: {
+        text: 'aktuální k 10.3.'
+              + '<br><span style="color: #fff">.</span>',
+        useHTML: true
+    },
+    credits: {
+        href : 'https://www.mvcr.cz/clanek/informativni-pocty-obyvatel-v-obcich.aspx',
+        text : 'Zdroj: Ministerstvo vnitra'
+    },
+    xAxis: [{
+        categories: s1_cat,
+        reversed: false,
+        labels: {
+            step: 1
+        }
+    }, { 
+        opposite: true,
+        reversed: false,
+        categories: s1_cat,
+        linkedTo: 0,
+        labels: {
+            step: 1
+        }
+    }],
+    yAxis: {
+        title: {
+            text: null
+        },
+        labels: {
+            formatter: function () {
+                return Math.abs(this.value) + '%';
+            }
+        }
+    },
+    exporting: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            stacking: 'normal'
+        }
+    },
+    tooltip: {
+        formatter: function () {
+            return '<b>' + this.series.name + ', věk ' + this.point.category + '</b><br/>' + Highcharts.numberFormat(Math.abs(this.point.y), 1) + '%';
+        }
+    },
+    series: [{
+        name: 'Muži',
+        data: s1_m,
+        color: colors['muzi']
+    }, {
+        name: 'Ženy',
+        data: s1_f,
+        color: colors['zeny']
+    }]
+});
+
+Highcharts.chart('s2', {
+  chart: {
+      type: 'column',
+      width: chartWidth, 
+      height: 500 
+  },
+  title: {
+      text: 'Pobytová oprávnění v souvislosti s válkou na Ukrajině', 
+      useHTML: true,
+  },
+  subtitle: {
+      text: 'aktuální k 10.3.'
+            + '<br><span style="color: #fff">.</span>',
+      useHTML: true
+  },
+  credits: {
+      href : 'https://www.mvcr.cz/clanek/informativni-pocty-obyvatel-v-obcich.aspx',
+      text : 'Zdroj: Ministerstvo vnitra'
+  },
+  xAxis: {
+      categories: s2_kraj
+  },
+  yAxis: {
+      title: {
+          text: 'běženci'
+      },
+  labels: {
+        formatter: function () {
+          return this.value + '  /100 tisíc';
+        },
+      }
+  }, 
+  tooltip: {
+    formatter: function () {
+        return '<b>' + this.point.category + '</b><br/>' + this.point.y + ' běženců na 100 tisíc obyvatel kraje <br/>' + this.point.pocet + ' běženců absolutně';
+    }
+  },
+  exporting: {
+      enabled: false
+  },
+  legend: {
+      enabled: false
+  },
+  plotOptions: {
+      column: {
+          stacking: 'stacked',
+          dataLabels: {
+              enabled: false
+          },
+          enableMouseTracking: true,
+          pointPadding: 0.1,
+          groupPadding: 0.15,
+          borderWidth: 0
+      }
+  },
+  series: [
+  {
+    name: 'Podíl',
+    data: s2_rel,
+    color: colors['vt']
+  }
+]
+});  
+
+</script>
